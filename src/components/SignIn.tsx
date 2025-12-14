@@ -4,9 +4,10 @@ import { Mail, Phone, Eye, EyeOff, TrendingUp, ArrowRight } from 'lucide-react';
 interface SignInProps {
   onSignIn: () => void;
   onForgotPassword: () => void;
+  onSignUp: () => void;
 }
 
-export function SignIn({ onSignIn, onForgotPassword }: SignInProps) {
+export function SignIn({ onSignIn, onForgotPassword, onSignUp }: SignInProps) {
   const [signInMethod, setSignInMethod] = useState<'email' | 'phone'>('email');
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -203,8 +204,11 @@ export function SignIn({ onSignIn, onForgotPassword }: SignInProps) {
         {/* Footer */}
         <div className="text-center text-white text-sm">
           <p className="mb-2">Don&apos;t have an account?</p>
-          <button className="text-white underline hover:no-underline">
-            Contact your administrator
+          <button 
+            onClick={onSignUp}
+            className="text-white font-semibold underline hover:no-underline"
+          >
+            Sign Up Now
           </button>
         </div>
       </div>

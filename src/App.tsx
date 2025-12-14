@@ -3,13 +3,15 @@ import { Dashboard } from './components/Dashboard';
 import { MeetingBrief } from './components/MeetingBrief';
 import { Sidebar } from './components/Sidebar';
 import { SignIn } from './components/SignIn';
+import { SignUp } from './components/SignUp';
 import { ForgotPassword } from './components/ForgotPassword';
 import { MeetingsView } from './components/MeetingsView';
 import { PropertiesView } from './components/PropertiesView';
 import { InsightsView } from './components/InsightsView';
 import { ProfileView } from './components/ProfileView';
+import { LeadsView } from './components/LeadsView';
 
-type View = 'signin' | 'forgot-password' | 'dashboard' | 'meeting' | 'meetings' | 'properties' | 'insights' | 'profile';
+type View = 'signin' | 'signup' | 'forgot-password' | 'dashboard' | 'meeting' | 'meetings' | 'properties' | 'insights' | 'profile' | 'leads';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<View>('signin');
@@ -40,10 +42,14 @@ export default function App() {
     if (currentView === 'forgot-password') {
       return <ForgotPassword onBack={() => setCurrentView('signin')} />;
     }
+    if (currentView === 'signup') {
+      return <SignUp onSignUp={handleSignIn} onBack={() => setCurrentView('signin')} />;
+    }
     return (
       <SignIn 
         onSignIn={handleSignIn} 
         onForgotPassword={() => setCurrentView('forgot-password')}
+        onSignUp={() => setCurrentView('signup')}
       />
     );
   }
@@ -65,6 +71,9 @@ export default function App() {
         )}
         {currentView === 'properties' && (
           <PropertiesView onNavigate={handleNavigate} />
+        )}
+        {currentView === 'leads' && (
+          <LeadsView onNavigate={handleNavigate} />
         )}
         {currentView === 'insights' && (
           <InsightsView onNavigate={handleNavigate} />

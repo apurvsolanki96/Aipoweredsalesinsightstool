@@ -28,6 +28,7 @@ export function Dashboard({ onMeetingSelect, onNavigate }: DashboardProps) {
       change: '+3 this week',
       icon: TrendingUp,
       gradient: 'from-green-500 to-emerald-500',
+      onClick: () => onNavigate('leads'),
     },
     {
       label: 'Properties',
@@ -36,13 +37,6 @@ export function Dashboard({ onMeetingSelect, onNavigate }: DashboardProps) {
       icon: Building2,
       gradient: 'from-blue-500 to-cyan-500',
       onClick: () => onNavigate('properties'),
-    },
-    {
-      label: 'Urgent',
-      value: '5',
-      change: 'Attention',
-      icon: AlertCircle,
-      gradient: 'from-orange-500 to-amber-500',
     },
   ];
 
@@ -111,7 +105,7 @@ export function Dashboard({ onMeetingSelect, onNavigate }: DashboardProps) {
       <header className="bg-white border-b border-slate-200 p-4 md:hidden sticky top-0 z-10">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
+            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -133,7 +127,7 @@ export function Dashboard({ onMeetingSelect, onNavigate }: DashboardProps) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search insights..."
-            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           />
         </div>
       </header>
@@ -153,7 +147,7 @@ export function Dashboard({ onMeetingSelect, onNavigate }: DashboardProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search companies, insights..."
-                className="pl-10 pr-4 py-2 border border-slate-200 rounded-lg w-80 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="pl-10 pr-4 py-2 border border-slate-200 rounded-lg w-80 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
               />
             </div>
           </div>
@@ -214,7 +208,7 @@ export function Dashboard({ onMeetingSelect, onNavigate }: DashboardProps) {
                 <select 
                   value={selectedFilter}
                   onChange={(e) => setSelectedFilter(e.target.value)}
-                  className="px-3 py-1.5 text-sm bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="px-3 py-1.5 text-sm bg-white border border-slate-200 rounded-lg text-slate-600 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   <option value="all">All Sources</option>
                   <option value="financial">Financial</option>
