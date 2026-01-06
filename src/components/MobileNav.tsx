@@ -1,4 +1,4 @@
-import { Home, Calendar, Building2, User, TrendingUp, Menu, Users } from 'lucide-react';
+import { Home, Calendar, Building2, User, TrendingUp, Menu, Users, Newspaper } from 'lucide-react';
 
 interface MobileNavProps {
   currentView: string;
@@ -11,7 +11,7 @@ export function MobileNav({ currentView, onNavigate }: MobileNavProps) {
     { id: 'meetings', icon: Calendar, label: 'Meetings' },
     { id: 'leads', icon: Users, label: 'Leads' },
     { id: 'properties', icon: Building2, label: 'Properties' },
-    { id: 'profile', icon: User, label: 'Profile' },
+    { id: 'news', icon: Newspaper, label: 'News' },
   ];
 
   return (

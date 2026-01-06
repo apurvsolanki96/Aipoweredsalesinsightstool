@@ -1,26 +1,33 @@
 import { useState } from 'react';
+import { Navbar } from './components/Navbar';
 import { Dashboard } from './components/Dashboard';
 import { MeetingBrief } from './components/MeetingBrief';
-import { Sidebar } from './components/Sidebar';
 import { SignIn } from './components/SignIn';
 import { SignUp } from './components/SignUp';
 import { ForgotPassword } from './components/ForgotPassword';
 import { MeetingsView } from './components/MeetingsView';
 import { PropertiesView } from './components/PropertiesView';
-import { InsightsView } from './components/InsightsView';
+import { MarketPulseView } from './components/MarketPulseView';
 import { ProfileView } from './components/ProfileView';
 import { LeadsView } from './components/LeadsView';
+import { PostRequirementDialog } from './components/PostRequirementDialog';
 
-type View = 'signin' | 'signup' | 'forgot-password' | 'dashboard' | 'meeting' | 'meetings' | 'properties' | 'insights' | 'profile' | 'leads';
+type View = 'signin' | 'signup' | 'forgot-password' | 'dashboard' | 'meeting' | 'meetings' | 'properties' | 'news' | 'profile' | 'leads';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<View>('signin');
   const [selectedMeeting, setSelectedMeeting] = useState<any>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isPostRequirementOpen, setIsPostRequirementOpen] = useState(false);
 
   const handleSignIn = () => {
     setIsAuthenticated(true);
     setCurrentView('dashboard');
+  };
+
+  const handleSignOut = () => {
+    setIsAuthenticated(false);
+    setCurrentView('signin');
   };
 
   const handleMeetingSelect = (meeting: any) => {
@@ -35,6 +42,7 @@ export default function App() {
 
   const handleNavigate = (view: View) => {
     setCurrentView(view);
+    window.scrollTo(0, 0); // Scroll to top on navigation
   };
 
   // Auth flow
@@ -54,32 +62,54 @@ export default function App() {
     );
   }
 
-  // Main app
+  // Main Website Layout with Navbar
   return (
-    <div className="flex h-screen bg-slate-50">
-      <Sidebar currentView={currentView} onNavigate={handleNavigate} />
+    <div className="min-h-screen bg-slate-50 font-sans">
+      <Navbar 
+        currentView={currentView} 
+        onNavigate={handleNavigate} 
+        onSignOut={handleSignOut}
+        onPostRequirement={() => setIsPostRequirementOpen(true)}
+      />
       
-      <main className="flex-1 overflow-auto">
+      <PostRequirementDialog 
+        open={isPostRequirementOpen} 
+        onOpenChange={setIsPostRequirementOpen} 
+      />
+      
+      <main>
         {currentView === 'dashboard' && (
           <Dashboard onMeetingSelect={handleMeetingSelect} onNavigate={handleNavigate} />
         )}
         {currentView === 'meeting' && (
-          <MeetingBrief meeting={selectedMeeting} onBack={handleBackToDashboard} />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+             <MeetingBrief meeting={selectedMeeting} onBack={handleBackToDashboard} />
+          </div>
         )}
         {currentView === 'meetings' && (
-          <MeetingsView onMeetingSelect={handleMeetingSelect} onNavigate={handleNavigate} />
+           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-[calc(100vh-80px)]">
+             <MeetingsView onMeetingSelect={handleMeetingSelect} onNavigate={handleNavigate} />
+           </div>
         )}
         {currentView === 'properties' && (
-          <PropertiesView onNavigate={handleNavigate} />
+           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-[calc(100vh-80px)]">
+             <PropertiesView onNavigate={handleNavigate} />
+           </div>
         )}
         {currentView === 'leads' && (
-          <LeadsView onNavigate={handleNavigate} />
+           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-[calc(100vh-80px)]">
+             <LeadsView onNavigate={handleNavigate} />
+           </div>
         )}
-        {currentView === 'insights' && (
-          <InsightsView onNavigate={handleNavigate} />
+        {currentView === 'news' && (
+           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-[calc(100vh-80px)]">
+             <MarketPulseView onNavigate={handleNavigate} />
+           </div>
         )}
         {currentView === 'profile' && (
-          <ProfileView onNavigate={handleNavigate} />
+           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 h-[calc(100vh-80px)]">
+             <ProfileView onNavigate={handleNavigate} />
+           </div>
         )}
       </main>
     </div>
